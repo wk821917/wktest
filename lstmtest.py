@@ -17,7 +17,7 @@ from keras.callbacks import LearningRateScheduler, ModelCheckpoint
 from keras import regularizers
 
 
-data = pd.read_csv('./actdata.csv')
+data = pd.read_csv('/mnt/data/actdata.csv')
 input_step_size = 500
 output_size = 10
 def dataset_setup(data):
