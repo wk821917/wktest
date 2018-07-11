@@ -5,7 +5,7 @@ import pandas as pd
 from pandas import Series,DataFrame
 import re 
 import os
-import hickle as hkl
+# import hickle as hkl
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
@@ -37,8 +37,8 @@ def dataset_setup(data):
     y_val = outputs[size1:size2,:,1]
     x_test = inputs[size2:,:]
     y_test = outputs[size2:,:,1]
-    hkl.dump(x_test, './x_test.hkl')
-    hkl.dump(y_test, './y_test.hkl')
+#     hkl.dump(x_test, './x_test.hkl')
+#     hkl.dump(y_test, './y_test.hkl')
     plt.figure(figsize=(100,10))
     plt.plot(DataFrame(data))
     plt.savefig('./out_th.png')
