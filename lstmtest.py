@@ -64,7 +64,7 @@ def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     learn_rate = lambda epoch: 0.0001 if epoch < 5 else 0.00001
     callbacks = [LearningRateScheduler(learn_rate)]
     callbacks.append(ModelCheckpoint(filepath='./weights.hdf5', monitor='val_loss', save_best_only=True))	
-    history = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_val, y_val), verbose=1, shuffle=False, callbacks=callbacks)
+    history = model.fit(x_train, y_train, epochs=10, batch_size=128, validation_data=(x_val, y_val), verbose=1, shuffle=False, callbacks=callbacks)
     json_string = model.to_json()
     with open('./model.json', "w") as f:
         f.write(json_string)
