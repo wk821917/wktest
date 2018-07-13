@@ -17,18 +17,6 @@ from keras.layers import LSTM, SimpleRNN,LeakyReLU
 from keras.callbacks import LearningRateScheduler, ModelCheckpoint
 from keras import regularizers
 
-model_filename = "lstm_model.h5"
-
-# writing the train model and getting input data
-if environ.get('RESULT_DIR') is not None:
-    output_model_folder = os.path.join(os.environ["RESULT_DIR"], "model")
-    output_model_path = os.path.join(output_model_folder, model_filename)
-else:
-    output_model_folder = "model"
-    output_model_path = os.path.join("model", model_filename)
-
-os.makedirs(output_model_folder, exist_ok=True)
-
 
 data = pd.read_csv('wktest-master/actdata.csv')
 input_step_size = 500
@@ -100,4 +88,4 @@ if __name__ == '__main__':
     x_train, y_train, x_val, y_val, x_test, y_test = dataset_setup(data.iloc[:,1:])
     model = create_model(x_train)
     train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test)
-    model.save(output_model_path)
+
