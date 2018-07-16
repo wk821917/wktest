@@ -89,7 +89,7 @@ def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     callbacks.append(ModelCheckpoint(filepath='./weights.hdf5', monitor='val_loss', save_best_only=True))	
     history = model.fit(x_train, y_train, epochs=10, batch_size=128, validation_data=(x_val, y_val), verbose=1, shuffle=False, callbacks=callbacks)
     json_string = model.to_json()
-    with open('./model.json', "w") as f:
+    with open(output_model_path, "w") as f:
         f.write(json_string)
     plt.plot(history.history['loss'], label='train')
     plt.plot(history.history['val_loss'], label='val')
@@ -111,4 +111,4 @@ if __name__ == '__main__':
     x_train, y_train, x_val, y_val, x_test, y_test = dataset_setup(data.iloc[:,1:])
     model = create_model(x_train)
     train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test)
-    model.save(output_model_path)
+#     model.save(output_model_path)
