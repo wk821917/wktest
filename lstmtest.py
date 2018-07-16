@@ -5,6 +5,7 @@ import pandas as pd
 from pandas import Series,DataFrame
 import re 
 import os
+from os import environ
 # import hickle as hkl
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -14,13 +15,35 @@ K.clear_session()
 from keras.models import Model,Sequential
 from keras.layers import Input, Dense, Flatten, Dropout, Activation
 from keras.layers import LSTM, SimpleRNN,LeakyReLU
-from keras.callbacks import LearningRateScheduler, ModelCheckpoint
+from keras.callbacks import LearningRateScheduler, ModelCheckpoint, TensorBoard
 from keras import regularizers
 
 
 data = pd.read_csv('wktest-master/actdata.csv')
 input_step_size = 500
 output_size = 10
+
+model_filename = "lstm.json"
+
+# writing the train model and getting input data
+if environ.get('RESULT_DIR') is not None:
+    output_model_folder = os.path.join(os.environ["RESULT_DIR"], "model")
+    output_model_path = os.path.join(output_model_folder, model_filename)
+else:
+    output_model_folder = "model"
+    output_model_path = os.path.join("model", model_filename)
+
+os.makedirs(output_model_folder, exist_ok=True)
+
+#writing metrics
+if environ.get('JOB_STATE_DIR') is not None:
+    tb_directory = os.path.join(os.environ["JOB_STATE_DIR"], "logs", "tb", "test")
+else:
+    tb_directory = os.path.join("logs", "tb", "test")
+
+os.makedirs(tb_directory, exist_ok=True)
+tensorboard = TensorBoard(log_dir=tb_directory)
+
 def dataset_setup(data):
     data = np.array(data)
     inputs = []
@@ -88,4 +111,4 @@ if __name__ == '__main__':
     x_train, y_train, x_val, y_val, x_test, y_test = dataset_setup(data.iloc[:,1:])
     model = create_model(x_train)
     train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test)
-
+    model.save(output_model_path)
