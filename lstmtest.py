@@ -24,16 +24,22 @@ input_step_size = 500
 output_size = 10
 
 model_filename = "lstm.json"
-
+picname = 'pred_act.png'
 # writing the train model and getting input data
 if environ.get('RESULT_DIR') is not None:
     output_model_folder = os.path.join(os.environ["RESULT_DIR"], "model")
     output_model_path = os.path.join(output_model_folder, model_filename)
+    output_pic_folder = os.path.join(os.environ["RESULT_DIR"], "picture")
+    output_pic_path = os.path.join(output_model_folder, picname)
 else:
     output_model_folder = "model"
     output_model_path = os.path.join("model", model_filename)
+    output_pic_folder = "picture"
+    output_pic_path = os.path.join("picture", picname)
 
 os.makedirs(output_model_folder, exist_ok=True)
+
+os.makedirs(output_pic_folder, exist_ok=True)
 
 #writing metrics
 if environ.get('JOB_STATE_DIR') is not None:
@@ -104,7 +110,7 @@ def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     ax2.set_title('active')
     ax2.plot(x,y_test[:,0])
     plt.tight_layout(2)
-    plt.savefig('./pred_act.png')
+    plt.savefig(output_pic_path)
 
 
 if __name__ == '__main__':
