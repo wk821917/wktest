@@ -84,7 +84,7 @@ def create_model(x_train):
     lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
     #drop3 = Dropout(0.2)(lstm3)
     fa = Flatten()(lstm3)
-    out = Dense(10,kernel_regularizer=regularizers.l2(0.1))(fa)#kernel_regularizer=regularizers.l2(0.01)
+    out = Dense(10,kernel_regularizer=regularizers.l2(0.01))(fa)#kernel_regularizer=regularizers.l2(0.01)
     model = Model(m_inputs,out)
     model.compile(loss='mae', optimizer='adam')
     return model
