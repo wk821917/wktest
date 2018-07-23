@@ -42,13 +42,13 @@ os.makedirs(output_model_folder, exist_ok=True)
 os.makedirs(output_pic_folder, exist_ok=True)
 
 #writing metrics
-if environ.get('JOB_STATE_DIR') is not None:
-    tb_directory = os.path.join(os.environ["JOB_STATE_DIR"], "logs", "tb", "test")
-else:
-    tb_directory = os.path.join("logs", "tb", "test")
+# if environ.get('JOB_STATE_DIR') is not None:
+#     tb_directory = os.path.join(os.environ["JOB_STATE_DIR"], "logs", "tb", "test")
+# else:
+#     tb_directory = os.path.join("logs", "tb", "test")
 
-os.makedirs(tb_directory, exist_ok=True)
-tensorboard = TensorBoard(log_dir=tb_directory)
+# os.makedirs(tb_directory, exist_ok=True)
+# tensorboard = TensorBoard(log_dir=tb_directory)
 
 def dataset_setup(data):
     data = np.array(data)
