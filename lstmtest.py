@@ -19,7 +19,7 @@ from keras.callbacks import LearningRateScheduler, ModelCheckpoint, TensorBoard
 from keras import regularizers
 
 
-data = pd.read_csv('wktest-master/actdata.csv')
+data = pd.read_csv('wktest-master/water-tilt.csv')
 input_step_size = 50
 output_size = 10
 
@@ -62,11 +62,11 @@ def dataset_setup(data):
     size1 = int(0.8*inputs.shape[0])
     size2 = int(0.9*inputs.shape[0])
     x_train  = inputs[:size1,:]
-    y_train = outputs[:size1,:,1]
+    y_train = outputs[:size1,:,-1]
     x_val = inputs[size1:size2,:]
-    y_val = outputs[size1:size2,:,1]
+    y_val = outputs[size1:size2,:,-1]
     x_test = inputs[size2:,:]
-    y_test = outputs[size2:,:,1]
+    y_test = outputs[size2:,:,-1]
 #     hkl.dump(x_test, './x_test.hkl')
 #     hkl.dump(y_test, './y_test.hkl')
     plt.figure(figsize=(100,10))
