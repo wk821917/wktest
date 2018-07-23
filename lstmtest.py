@@ -100,7 +100,7 @@ def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     plt.plot(history.history['loss'], label='train')
     plt.plot(history.history['val_loss'], label='val')
     plt.legend()
-    plt.savefig('output_pic_folder/loss.png')
+    plt.savefig(os.path.join(output_pic_folder,'loss.png'))
     y_pred = model.predict(x_test)
     x = [i for i in range(y_pred.shape[0])]
     ax1 = plt.subplot(211)
