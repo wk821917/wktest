@@ -84,7 +84,7 @@ def create_model(x_train):
     lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
     #drop3 = Dropout(0.2)(lstm3)
     fa = Flatten()(lstm3)
-    out = Dense(10)(fa)#kernel_regularizer=regularizers.l2(0.01)
+    out = Dense(10,kernel_regularizer=regularizers.l2(0.1))(fa)#kernel_regularizer=regularizers.l2(0.01)
     model = Model(m_inputs,out)
     model.compile(loss='mae', optimizer='adam')
     return model
@@ -100,7 +100,7 @@ def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     plt.plot(history.history['loss'], label='train')
     plt.plot(history.history['val_loss'], label='val')
     plt.legend()
-    plt.savefig('./loss.png')
+    plt.savefig('output_pic_folder/loss.png')
     y_pred = model.predict(x_test)
     x = [i for i in range(y_pred.shape[0])]
     ax1 = plt.subplot(211)
