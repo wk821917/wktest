@@ -41,14 +41,6 @@ os.makedirs(output_model_folder, exist_ok=True)
 
 os.makedirs(output_pic_folder, exist_ok=True)
 
-#writing metrics
-# if environ.get('JOB_STATE_DIR') is not None:
-#     tb_directory = os.path.join(os.environ["JOB_STATE_DIR"], "logs", "tb", "test")
-# else:
-#     tb_directory = os.path.join("logs", "tb", "test")
-
-# os.makedirs(tb_directory, exist_ok=True)
-# tensorboard = TensorBoard(log_dir=tb_directory)
 
 def dataset_setup(data):
     data = np.array(data)
@@ -117,4 +109,4 @@ if __name__ == '__main__':
     x_train, y_train, x_val, y_val, x_test, y_test = dataset_setup(data.iloc[:,1:])
     model = create_model(x_train)
     train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test)
-#     model.save(output_model_path)
+
