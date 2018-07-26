@@ -25,21 +25,26 @@ output_size = 10
 
 model_filename = "lstm.json"
 picname = 'pred_act.png'
+weight_file = 'weight.hdf5'
 # writing the train model and getting input data
 if environ.get('RESULT_DIR') is not None:
     output_model_folder = os.path.join(os.environ["RESULT_DIR"], "model")
     output_model_path = os.path.join(output_model_folder, model_filename)
     output_pic_folder = os.path.join(os.environ["RESULT_DIR"], "picture")
-    output_pic_path = os.path.join(output_model_folder, picname)
+    output_pic_path = os.path.join(output_pic_folder, picname)
+    output_weight_folder = os.path.join(os.environ["RESULT_DIR"], "weight")
+    output_weight_path = os.path.join(output_weight_folder, weight_file)    
 else:
     output_model_folder = "model"
     output_model_path = os.path.join("model", model_filename)
     output_pic_folder = "picture"
     output_pic_path = os.path.join("picture", picname)
+    output_weight_folder = "weight"
+    output_weight_path = os.path.join("weight", weight_file)
 
 os.makedirs(output_model_folder, exist_ok=True)
-
 os.makedirs(output_pic_folder, exist_ok=True)
+os.makedirs(output_weight_folder, exist_ok=True)
 
 
 def dataset_setup(data):
@@ -84,7 +89,7 @@ def create_model(x_train):
 def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     learn_rate = lambda epoch: 0.0001 if epoch < 10 else 0.00001
     callbacks = [LearningRateScheduler(learn_rate)]
-    callbacks.append(ModelCheckpoint(filepath='./weights.hdf5', monitor='val_loss', save_best_only=True))	
+    callbacks.append(ModelCheckpoint(filepath=output_weight_path, monitor='val_loss', save_best_only=True))	
     history = model.fit(x_train, y_train, epochs=50, batch_size=32, validation_data=(x_val, y_val), verbose=1, shuffle=False, callbacks=callbacks)
     json_string = model.to_json()
     with open(output_model_path, "w") as f:
