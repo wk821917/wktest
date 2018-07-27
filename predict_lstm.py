@@ -19,5 +19,8 @@ f.close()
 
 model = model_from_json(json_string)
 model.load_weights('wktest-master/weight.hdf5')
+# print(json_string)
 
-print(json_string)
+input_step_size = 50
+output_size = 10
+data = data.ilco[:,1:]
