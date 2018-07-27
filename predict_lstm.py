@@ -5,6 +5,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import pandas as pd
+from pandas import Series, DataFrame
 
 from keras import backend as K
 from keras.models import Model, model_from_json
