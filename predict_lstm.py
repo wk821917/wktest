@@ -13,7 +13,7 @@ from keras.models import Model, model_from_json
 from keras.layers import Input, Dense, Flatten
 
 data = pd.read_csv('wktest-master/predict_data.csv')
-f = open('training-o3hdtoFiR/model/lstm.json', 'r')
+f = open('/training-o3hdtoFiR/model/lstm.json', 'r')
 json_string = f.read()
 f.close()
 
