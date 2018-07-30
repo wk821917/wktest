@@ -1,4 +1,5 @@
 import os
+from os import environ
 import numpy as np
 from six.moves import cPickle
 import matplotlib
