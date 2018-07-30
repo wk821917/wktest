@@ -19,7 +19,8 @@ if environ.get('RESULT_DIR') is not None:
     output_result_path = os.path.join(output_result_folder, result_file)
 else:
     output_result_folder = "predict_result"
-    output_result_path = os.path.join("predict_result", model_filename)
+    output_result_path = os.path.join("predict_result", result_file)
+os.makedirs(output_result_folder, exist_ok=True)
     
 data = pd.read_csv('wktest-master/predict_data.csv')
 f = open('wktest-master/lstm.json', 'r')
