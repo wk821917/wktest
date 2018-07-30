@@ -25,9 +25,8 @@ input_step_size = 50
 output_size = 10
 inputs = []
 outputs = []
-data = data.iloc[:,1:]
-
-test_data = data.iloc[-50:,:]
+data = data.iloc[-50:,1:]
+data = np.array(data)
 x = []
 x.append(test_data)
 result = model.predict(np.array(x))
