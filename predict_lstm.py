@@ -25,7 +25,7 @@ input_step_size = 50
 output_size = 10
 inputs = []
 outputs = []
-data = data.ilco[:,1:]
+data = data.iloc[:,1:]
 
 test_data = data.iloc[-50:,:]
 result = model.predict(test_data)
