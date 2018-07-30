@@ -81,7 +81,7 @@ def create_model(x_train):
     lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
     #drop3 = Dropout(0.2)(lstm3)
     fa = Flatten()(lstm3)
-    out = Dense(10,kernel_regularizer=regularizers.l2(0.01))(fa)#kernel_regularizer=regularizers.l2(0.01)
+    out = Dense(10)(fa)#kernel_regularizer=regularizers.l2(0.01)
     model = Model(m_inputs,out)
     model.compile(loss='mae', optimizer='adam')
     return model
@@ -90,7 +90,7 @@ def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     learn_rate = lambda epoch: 0.0001 if epoch < 10 else 0.00001
     callbacks = [LearningRateScheduler(learn_rate)]
     callbacks.append(ModelCheckpoint(filepath=output_weight_path, monitor='val_loss', save_best_only=True))	
-    history = model.fit(x_train, y_train, epochs=50, batch_size=32, validation_data=(x_val, y_val), verbose=1, shuffle=False, callbacks=callbacks)
+    history = model.fit(x_train, y_train, epochs=50, batch_size=16, validation_data=(x_val, y_val), verbose=1, shuffle=False, callbacks=callbacks)
     json_string = model.to_json()
     with open(output_model_path, "w") as f:
         f.write(json_string)
