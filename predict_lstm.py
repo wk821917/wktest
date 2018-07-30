@@ -28,7 +28,7 @@ outputs = []
 data = data.iloc[-50:,1:]
 data = np.array(data)
 x = []
-x.append(test_data)
+x.append(data)
 result = model.predict(np.array(x))
 print(result)
 print(result.shape)
