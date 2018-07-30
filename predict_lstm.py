@@ -28,6 +28,6 @@ outputs = []
 data = data.iloc[:,1:]
 
 test_data = data.iloc[-50:,:]
-result = model.predict(test_data)
+result = model.predict(np.array(test_data))
 print(result)
 print(result.shape)
