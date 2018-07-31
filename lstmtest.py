@@ -74,11 +74,11 @@ def dataset_setup(data):
 
 def create_model(x_train):
     m_inputs = Input(shape=(x_train.shape[1],x_train.shape[2]))
-    lstm1 = LSTM(units=256, return_sequences=True)(m_inputs)
+    lstm1 = LSTM(units=128, return_sequences=True)(m_inputs)
     #drop1 = Dropout(0.2)(lstm1)
-    lstm2 = LSTM(units=128,return_sequences=True)(lstm1)
+    lstm2 = LSTM(units=64,return_sequences=True)(lstm1)
     #drop2 = Dropout(0.2)(lstm2)
-    lstm3 = LSTM(units=64,return_sequences=True)(lstm2)
+    lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
     #drop3 = Dropout(0.2)(lstm3)
     fa = Flatten()(lstm3)
     out = Dense(10)(fa)#kernel_regularizer=regularizers.l2(0.01)
