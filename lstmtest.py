@@ -65,11 +65,11 @@ def dataset_setup(data):
     size1 = int(0.8*inputs.shape[0])
     size2 = int(0.9*inputs.shape[0])
     x_train  = inputs[:size1,:]
-    y_train = outputs[:size1,:,-2:]
+    y_train = outputs[:size1,:,-1:]
     x_val = inputs[size1:size2,:]
-    y_val = outputs[size1:size2,:,-2:]
+    y_val = outputs[size1:size2,:,-1:]
     x_test = inputs[size2:,:]
-    y_test = outputs[size2:,:,-2:]
+    y_test = outputs[size2:,:,-1:]
     plt.figure(figsize=(100,10))
     plt.plot(DataFrame(data))
     plt.savefig('./out_th.png')
@@ -85,7 +85,7 @@ def create_model(x_train):
     lstm2 = LSTM(units=64,return_sequences=True)(lstm1)
     lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
     fa = Flatten()(lstm3)
-    out = Dense((10,2))(fa)
+    out = Dense(10)(fa)
     model = Model(m_inputs,out)
     model.compile(loss='mae', optimizer='adam')
     return model
