@@ -65,11 +65,11 @@ def dataset_setup(data):
     size1 = int(0.8*inputs.shape[0])
     size2 = int(0.9*inputs.shape[0])
     x_train  = inputs[:size1,:]
-    y_train = outputs[:size1,:,-1]
+    y_train = outputs[:size1,:,-2:]
     x_val = inputs[size1:size2,:]
-    y_val = outputs[size1:size2,:,-1]
+    y_val = outputs[size1:size2,:,-2:]
     x_test = inputs[size2:,:]
-    y_test = outputs[size2:,:,-1]
+    y_test = outputs[size2:,:,-2:]
     plt.figure(figsize=(100,10))
     plt.plot(DataFrame(data))
     plt.savefig('./out_th.png')
