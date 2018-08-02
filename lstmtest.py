@@ -85,7 +85,7 @@ def create_model(x_train):
     lstm2 = LSTM(units=64,return_sequences=True)(lstm1)
     lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
     fa = Flatten()(lstm3)
-    out = Dense(10)(fa)
+    out = Dense((10,2))(fa)
     model = Model(m_inputs,out)
     model.compile(loss='mae', optimizer='adam')
     return model
