@@ -6,7 +6,6 @@ from pandas import Series,DataFrame
 import re 
 import os
 from os import environ
-# import hickle as hkl
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 
@@ -18,15 +17,20 @@ from keras.layers import LSTM, SimpleRNN,LeakyReLU
 from keras.callbacks import LearningRateScheduler, ModelCheckpoint, TensorBoard
 from keras import regularizers
 
+'''
+with the input_step_size and output_size ,you can define the number of predict and previuos data when the model deployed
+'''
+data = pd.read_csv('wktest-master/water-tilt.csv')  #load data
+input_step_size = 50  #data transform input shape 
+output_size = 10   #data transform output shap
 
-data = pd.read_csv('wktest-master/water-tilt.csv')
-input_step_size = 50
-output_size = 10
-
+'''
+get WML environment and define the out_path
+'''
 model_filename = "lstm.json"
 picname = 'pred_act.png'
 weight_file = 'weight.hdf5'
-# writing the train model and getting input data
+
 if environ.get('RESULT_DIR') is not None:
     output_model_folder = os.path.join(os.environ["RESULT_DIR"], "model")
     output_model_path = os.path.join(output_model_folder, model_filename)
@@ -46,13 +50,15 @@ os.makedirs(output_model_folder, exist_ok=True)
 os.makedirs(output_pic_folder, exist_ok=True)
 os.makedirs(output_weight_folder, exist_ok=True)
 
-
+'''
+transform datasets return x_train, y_train, x_val, y_val, x_test, y_test
+'''
 def dataset_setup(data):
     data = np.array(data)
     inputs = []
     outputs = []
     for i in range(len(data)-input_step_size-output_size):
-        inputs.append(data[i:i + input_step_size])
+        inputs.append(data[i:i + input_step_size])   #
         outputs.append(data[i + input_step_size: i + input_step_size+ output_size])
     inputs = np.array(inputs)
     outputs = np.array(outputs)
@@ -64,28 +70,29 @@ def dataset_setup(data):
     y_val = outputs[size1:size2,:,-1]
     x_test = inputs[size2:,:]
     y_test = outputs[size2:,:,-1]
-#     hkl.dump(x_test, './x_test.hkl')
-#     hkl.dump(y_test, './y_test.hkl')
     plt.figure(figsize=(100,10))
     plt.plot(DataFrame(data))
     plt.savefig('./out_th.png')
     plt.clf()
     return x_train, y_train, x_val, y_val, x_test, y_test
 
+'''
+create model with three lstm layer 
+'''
 def create_model(x_train):
     m_inputs = Input(shape=(x_train.shape[1],x_train.shape[2]))
     lstm1 = LSTM(units=128, return_sequences=True)(m_inputs)
-    #drop1 = Dropout(0.2)(lstm1)
     lstm2 = LSTM(units=64,return_sequences=True)(lstm1)
-    #drop2 = Dropout(0.2)(lstm2)
     lstm3 = LSTM(units=32,return_sequences=True)(lstm2)
-    #drop3 = Dropout(0.2)(lstm3)
     fa = Flatten()(lstm3)
-    out = Dense(10)(fa)#kernel_regularizer=regularizers.l2(0.01)
+    out = Dense(10)(fa)
     model = Model(m_inputs,out)
     model.compile(loss='mae', optimizer='adam')
     return model
 
+'''
+train and save the model,plot the result and save as a png file
+'''
 def train_and_test_model(model,x_train, y_train, x_val, y_val, x_test, y_test):
     learn_rate = lambda epoch: 0.0001 if epoch < 10 else 0.00001
     callbacks = [LearningRateScheduler(learn_rate)]
