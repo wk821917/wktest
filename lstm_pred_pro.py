@@ -52,7 +52,7 @@ res = http.request('GET','http://openapi.ecois.info/v2/poi/device/data?sn=180314
 #st = json.loads(res)
 #data1 = pd.DataFrame(st)
 data1 = pd.DataFrame(json.loads(str(res.data,encoding = 'utf-8')))
-with open('.wktest-master/last_time.json') as load_f:
+with open('wktest-master/last_time.json') as load_f:
     json_dict = json.load(load_f)
 print(json_dict)
 json_key = json_dict.values()[0]
