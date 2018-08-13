@@ -55,7 +55,7 @@ data1 = pd.DataFrame(json.loads(str(res.data,encoding = 'utf-8')))
 with open('wktest-master/last_time.json') as load_f:
     json_dict = json.load(load_f)
 print(json_dict)
-json_key = json_dict.values()[0]
+json_key = json_dict['last_time']
 print(json_key)
 key_num = 0
 for i in range(len(data1.index)):
