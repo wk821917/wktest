@@ -10,7 +10,7 @@ import matplotlib.gridspec as gridspec
 import pandas as pd
 from pandas import Series, DataFrame
 
-import urllib2
+import urllib
 import re
 import json
 
@@ -45,8 +45,8 @@ os.makedirs(output_json_folder, exist_ok=True)
 '''
 get data
 '''
-req = urllib2.Request('http://openapi.ecois.info/v2/poi/device/data?sn=18031400075227&nodes=1,2,3&params=82,182,185&begin=20180615&end=20180801',headers=headers)
-res_data = urllib2.urlopen(req)
+req = urllib.Request('http://openapi.ecois.info/v2/poi/device/data?sn=18031400075227&nodes=1,2,3&params=82,182,185&begin=20180615&end=20180801',headers=headers)
+res_data = urllib.urlopen(req)
 res = res_data.read()
 st = json.loads(res)
 data1 = pd.DataFrame(st)
