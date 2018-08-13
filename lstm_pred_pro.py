@@ -33,7 +33,7 @@ if environ.get('RESULT_DIR') is not None:
     output_result_folder = os.path.join(os.environ["RESULT_DIR"], "predict_result")
     output_result_path = os.path.join(output_result_folder, result_file)
     output_json_folder = os.path.join(os.environ["RESULT_DIR"], "last_time")
-    output_json_path = os.path.join(output_json_folder, lsat_time)
+    output_json_path = os.path.join(output_json_folder, last_time)
 else:
     output_result_folder = "predict_result"
     output_result_path = os.path.join("predict_result", result_file)
