@@ -72,7 +72,7 @@ for i in range(data_50.shape[0]):
     water_percent3.append(float(data_50.iloc[i,0]['3']['82']))
 print(len(water_percent2),len(water_percent3))
 data = pd.DataFrame({'xtilt':xtilt_list,'ytilt':ytilt_list,'water2':water_percent2,'water3':water_percent3})
-
+data.to_csv(os.path.join(output_result_folder,'input_data.csv'))
 
 f = open('wktest-master/lstm.json', 'r')  #load the json file 
 json_string = f.read()
