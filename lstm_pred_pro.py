@@ -111,7 +111,7 @@ result_lst = result[-1,:]
 result_df = DataFrame({'predict':result_lst})
 result_df.to_csv(output_result_path)
 
-last_time = data_50.index[-1]
+last_time = data_60.index[-1]
 json_dict['last_time'] = last_time
 print(json_dict)
 with open(output_json_path,'w') as json_f:
