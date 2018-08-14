@@ -24,6 +24,7 @@ ytilt_list = []
 water_percent2 = []
 water_percent3 = []
 
+
 '''
 get WML environment and define the out_path
 '''
@@ -63,18 +64,18 @@ for i in range(len(data1.index)):
         key_num = i
         break
 print(key_num)
-data_50 = data1.iloc[key_num:key_num+50,:]
-for i in range(data_50.shape[0]):
-    if len(data_50.iloc[i,0]['1'])==2:
-        xtilt_list.append(float(data_50.iloc[i,0]['1']['182']))
-        ytilt_list.append(float(data_50.iloc[i,0]['1']['185']))
+data_60 = data1.iloc[key_num:key_num+60,:]
+for i in range(data_60.shape[0]):
+    if len(data_60.iloc[i,0]['1'])==2:
+        xtilt_list.append(float(data_60.iloc[i,0]['1']['182']))
+        ytilt_list.append(float(data_60.iloc[i,0]['1']['185']))
 print(len(xtilt_list),len(ytilt_list))
-for i in range(data_50.shape[0]):
-    water_percent2.append(float(data_50.iloc[i,0]['2']['82']))
-    water_percent3.append(float(data_50.iloc[i,0]['3']['82']))
+for i in range(data_60.shape[0]):
+    water_percent2.append(float(data_60.iloc[i,0]['2']['82']))
+    water_percent3.append(float(data_60.iloc[i,0]['3']['82']))
 print(len(water_percent2),len(water_percent3))
 data = pd.DataFrame({'xtilt':xtilt_list,'ytilt':ytilt_list,'water2':water_percent2,'water3':water_percent3})
-data.to_csv(os.path.join(output_result_folder,'input_data.csv'))
+data.iloc[10:,:].to_csv(os.path.join(output_result_folder,'input_data.csv'))
 
 f = open('wktest-master/lstm.json', 'r')  #load the json file 
 json_string = f.read()
@@ -96,14 +97,17 @@ inputs = []
 outputs = []
 #data = data.iloc[-50:,1:]
 data = np.array(data)
-x = []
-x.append(data)
+#x = []
+#x.append(data)
+for i in range(len(data)-inpu_step_size):
+    inputs.append(data[i:i + input_step_size])
+print(np.array(inputs).shape)
 
-result = model.predict(np.array(x)) #predict with the datasets depend on the model,and the shape of result will be equal to (1,output_size)
+result = model.predict(np.array(inputs)) #predict with the datasets depend on the model,and the shape of result will be equal to (1,output_size)
 print(result)
 print(result.shape)
 
-result_lst = result[0]
+result_lst = result[-1,:]
 result_df = DataFrame({'predict':result_lst})
 result_df.to_csv(output_result_path)
 
