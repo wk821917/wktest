@@ -76,7 +76,7 @@ for i in range(data_60.shape[0]):
 print(len(water_percent2),len(water_percent3))
 data = pd.DataFrame({'xtilt':xtilt_list,'ytilt':ytilt_list,'water2':water_percent2,'water3':water_percent3})
 #data.iloc[10:,:].to_csv(os.path.join(output_result_folder,'input_data.csv'))
-data.to_csv(os.path.join(output_result_folder,'act_before_input.csv'))
+data.to_csv(os.path.join(output_result_folder,'input_data.csv'))
 
 f = open('wktest-master/lstm.json', 'r')  #load the json file 
 json_string = f.read()
