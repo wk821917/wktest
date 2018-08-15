@@ -64,7 +64,7 @@ for i in range(len(data1.index)):
         key_num = i
         break
 print(key_num)
-data_60 = data1.iloc[key_num:key_num+55,:]
+data_60 = data1.iloc[key_num:key_num+60,:]
 for i in range(data_60.shape[0]):
     if len(data_60.iloc[i,0]['1'])==2:
         xtilt_list.append(float(data_60.iloc[i,0]['1']['182']))
