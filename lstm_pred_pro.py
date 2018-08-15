@@ -109,7 +109,7 @@ result = model.predict(np.array(inputs)) #predict with the datasets depend on th
 print(result)
 print(result.shape)
 
-result_lst = result[-1,:]
+result_lst = result[:,0]
 result_df = DataFrame({'predict':result_lst})
 result_df.to_csv(output_result_path)
 
