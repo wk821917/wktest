@@ -100,8 +100,9 @@ outputs = []
 data = np.array(data)
 #x = []
 #x.append(data)
-for i in range(len(data)-input_step_size):
-    inputs.append(data[i:i + input_step_size])
+#for i in range(len(data)-input_step_size):
+#    inputs.append(data[i:i + input_step_size])
+inputs.append(data)
 print(np.array(inputs).shape)
 
 result = model.predict(np.array(inputs)) #predict with the datasets depend on the model,and the shape of result will be equal to (1,output_size)
