@@ -105,9 +105,9 @@ for i in range(len(data)-input_step_size-output_size):
     outputs.append(data[i + input_step_size: i + input_step_size+ output_size])
 #inputs.append(data)
 print(np.array(inputs).shape)
-compare_array = np.array(outputs)[:,:,-1]
-compare_df = DataFrame(compare_array)
-compare_df.to_csv(os.path.join(output_result_folder,'compare_data.csv'))
+# compare_array = np.array(outputs)[:,:,-1]
+# compare_df = DataFrame(compare_array)
+# compare_df.to_csv(os.path.join(output_result_folder,'compare_data.csv'))
 
 result = model.predict(np.array(inputs)) #predict with the datasets depend on the model,and the shape of result will be equal to (1,output_size)
 print(result)
