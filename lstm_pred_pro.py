@@ -100,7 +100,7 @@ outputs = []
 data = np.array(data)
 #x = []
 #x.append(data)
-for i in range(len(data)-input_step_size):
+for i in range(len(data)-input_step_size-output_size):
     inputs.append(data[i:i + input_step_size])
 #inputs.append(data)
 print(np.array(inputs).shape)
