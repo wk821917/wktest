@@ -48,10 +48,6 @@ get data
 '''
 http = urllib3.PoolManager()
 res = http.request('GET','http://openapi.ecois.info/v2/poi/device/data?sn=18031400075227&nodes=1,2,3&params=82,182,185&begin=20180615&end=20180801',headers=headers)
-#res_data = urllib.request.urlopen(req)
-#res = res_data.read()
-#st = json.loads(res)
-#data1 = pd.DataFrame(st)
 data1 = pd.DataFrame(json.loads(str(res.data,encoding = 'utf-8')))
 with open('wktest-master/last_time.json') as load_f:
     json_dict = json.load(load_f)
@@ -76,6 +72,14 @@ for i in range(data_60.shape[0]):
 print(len(water_percent2),len(water_percent3))
 data = pd.DataFrame({'xtilt':xtilt_list,'ytilt':ytilt_list,'water2':water_percent2,'water3':water_percent3})
 #data.iloc[10:,:].to_csv(os.path.join(output_result_folder,'input_data.csv'))
+zero_lst = []
+for i in range(data.shape[0]):
+    if data.iloc[i,-1]==0.0:
+        zero_lst.append(i)
+if len(zero_lst)>0:
+    for i in zero_lst:
+        data = data.drop(i)
+
 data.to_csv(os.path.join(output_result_folder,'input_data.csv'))
 
 f = open('wktest-master/lstm.json', 'r')  #load the json file 
