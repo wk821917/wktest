@@ -67,8 +67,9 @@ for i in range(data_60.shape[0]):
         ytilt_list.append(float(data_60.iloc[i,0]['1']['185']))
 print(len(xtilt_list),len(ytilt_list))
 for i in range(data_60.shape[0]):
-    water_percent2.append(float(data_60.iloc[i,0]['2']['82']))
-    water_percent3.append(float(data_60.iloc[i,0]['3']['82']))
+    if len(data_60.iloc[i,0])==2:
+        water_percent2.append(float(data_60.iloc[i,0]['2']['82']))
+        water_percent3.append(float(data_60.iloc[i,0]['3']['82']))
 print(len(water_percent2),len(water_percent3))
 data = pd.DataFrame({'xtilt':xtilt_list,'ytilt':ytilt_list,'water2':water_percent2,'water3':water_percent3})
 #data.iloc[10:,:].to_csv(os.path.join(output_result_folder,'input_data.csv'))
