@@ -62,7 +62,7 @@ for i in range(len(data1.index)):
 print(key_num)
 data_60 = data1.iloc[key_num:key_num+1000,:]
 for i in range(data_60.shape[0]):
-    if (len(data_60.iloc[i,0]['1'])==2) and ('82' in data_60.iloc[i,2]['2'].keys()):
+    if (len(data_60.iloc[i,0]['1'])==2) and ('82' in data_60.iloc[i,0]['2'].keys()):
         xtilt_list.append(float(data_60.iloc[i,0]['1']['182']))
         ytilt_list.append(float(data_60.iloc[i,0]['1']['185']))
         water_percent2.append(float(data_60.iloc[i,0]['2']['82']))
